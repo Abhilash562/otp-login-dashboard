@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import LoginPage from "./pages/LoginPage.jsx"
 import RegisterPage from "./pages/RegisterPage.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
-import SupplierDashboard from "./pages/SupplierDashboard.jsx";
+import SupplierRoutes from "./modules/supplier/routes/SupplierRoutes.jsx";
 import VendorDashboard from "./pages/VendorDasgboard.jsx";
 import OTPVerification from './components/auth/OTPVerification.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
@@ -18,9 +18,9 @@ function App() {
           <AdminDashboard />
         </ProtectedRoute>
       } />
-      <Route path="/supplier/dashboard" element={
+      <Route path="/supplier/*" element={
          <ProtectedRoute role="supplier">
-          <SupplierDashboard />
+          <SupplierRoutes/>
          </ProtectedRoute>
       } />
       <Route path="/vendor/dashboard" element={
