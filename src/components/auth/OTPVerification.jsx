@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext.jsx';
 import {
   Box,
   Paper,
@@ -8,6 +7,7 @@ import {
   TextField,
   Button,
 } from '@mui/material';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const OTPVerification = () => {
   const [otp, setOtp] = useState('');
@@ -16,15 +16,35 @@ const OTPVerification = () => {
 
   const mobile = localStorage.getItem('mobile');
 
-  const handleVerify = (e) => {
+  const handleVerify = async (e) => {
     e.preventDefault();
 
-    if (otp === '1234') { // Replace with API call
-      const role = mobile.endsWith('1') ? 'supplier' : 'vendor'; 
-      login({ role, mobile });
-      navigate(`/${role}/dashboard`);
-    } else {
-      alert('Invalid OTP');
+    const role = localStorage.getItem('role');
+
+    try {
+      const response = await fetch('http://localhost:8080/verifyOTP', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          mobileNumber: mobile,
+          otp: otp,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === "VERIFIED") {
+        login({ role, mobile });
+        navigate(`/${role}/dashboard`);
+      } else {
+        alert(data.message || 'Invalid OTP');
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong during OTP verification');
     }
   };
 

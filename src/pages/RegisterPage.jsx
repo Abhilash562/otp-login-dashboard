@@ -16,10 +16,11 @@ import {
 const RegisterPage = () => {
    const [form, setForm] = useState({
     name: '',
-    mobile: '',
+    mobileNumber: '',
     location: '',
     businessName: '',
     businessType: '',
+    role:'',
   });
   const navigate = useNavigate();
 
@@ -28,14 +29,41 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // Replace with actual API call
-      await axios.post('/api/register', form);
+
+    //frontend validation
+    if(form.mobileNumber.length!==10){
+      alert('Mobile number must be exactly 10 digits');
+      return;
+    }
+
+    try{
+      const response = await axios.post(
+        'http://localhost:8080/register',
+        {
+          name: form.name,
+          mobileNumber: form.mobileNumber,
+          location: form.location,
+          businessName: form.businessName,
+          businessType: form.businessType,
+          role: form.role,
+        },
+        {
+          headers:{
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log(response.data);
+
       alert('Registration successful');
       navigate('/login');
-    // eslint-disable-next-line no-unused-vars
-    } catch (err) {
-      alert('Error registering');
+    } catch(err){
+      console.error(err);
+
+      alert(
+        err.response?.data?.message || 'Error registering user'
+      );
     }
   };
 
@@ -89,13 +117,24 @@ const RegisterPage = () => {
 
           <TextField
             label="Mobile Number"
-            name="mobile"
-            value={form.mobile}
-            onChange={handleChange}
+            name="mobileNumber"
+            value={form.mobileNumber}
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, '');
+              if (value.length <= 10) {
+                setForm({ ...form, mobileNumber: value });
+              }
+            }}
             fullWidth
             margin="normal"
             required
             inputProps={{ maxLength: 10 }}
+            error={form.mobileNumber.length > 0 && form.mobileNumber.length !== 10}
+            helperText={
+              form.mobileNumber.length > 0 && form.mobileNumber.length !== 10
+                ? 'Mobile number must be exactly 10 digits'
+                : ''
+            }
           />
 
           <TextField
@@ -118,17 +157,27 @@ const RegisterPage = () => {
             required
           />
 
+          <TextField
+          label="Business Type"
+          name="businessType"
+          value={form.businessType}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+          />
+
           <FormControl fullWidth margin="normal" required>
-            <InputLabel>Business Type</InputLabel>
+            <InputLabel>Role</InputLabel>
             <Select
-              name="businessType"
-              value={form.businessType}
+              name="role"
+              value={form.role}
               onChange={handleChange}
+              label="Role"
             >
-              <MenuItem value="Retail">Retail</MenuItem>
-              <MenuItem value="Service">Service</MenuItem>
-              <MenuItem value="Manufacturing">Manufacturing</MenuItem>
-              <MenuItem value="Other">Other</MenuItem>
+              <MenuItem value="ADMIN">ADMIN</MenuItem>
+              <MenuItem value="SUPPLIER">SUPPLIER</MenuItem>
+              <MenuItem value="VENDOR">VENDOR</MenuItem>
             </Select>
           </FormControl>
 

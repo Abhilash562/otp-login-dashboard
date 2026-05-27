@@ -14,17 +14,17 @@ function App() {
       <Route path="/verify-otp" element={<OTPVerification/>} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/admin/dashboard" element={
-        <ProtectedRoute role="admin">
+        <ProtectedRoute role="ADMIN">
           <AdminDashboard />
         </ProtectedRoute>
       } />
       <Route path="/supplier/*" element={
-         <ProtectedRoute role="supplier">
+         <ProtectedRoute role="SUPPLIER">
           <SupplierRoutes/>
          </ProtectedRoute>
       } />
       <Route path="/vendor/dashboard" element={
-         <ProtectedRoute role="vendor">
+         <ProtectedRoute role="VENDOR">
           <VendorDashboard />
          </ProtectedRoute>
       } />
