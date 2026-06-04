@@ -36,6 +36,7 @@ const OTPVerification = () => {
       const data = await response.json();
 
       if (data.status === "VERIFIED") {
+        localStorage.setItem("token" , data.token);
         login({ role, mobile });
         navigate(`/${role}/dashboard`);
       } else {

@@ -35,6 +35,8 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 /* ================= API ================= */
 const API_URL = "http://localhost:8080/product";
 
+const token = localStorage.getItem("token");
+
 /* ================= TABLE ================= */
 const ProductTable = ({ products, onEdit, onDelete }) => {
   return (
@@ -115,20 +117,15 @@ const AddProduct = () => {
     image: "",
   });
 
-  /* ================= FETCH (SAFE - NO ESLINT ISSUES) ================= */
   useEffect(() => {
-
-    console.log("fetching");
     const fetchProducts = async () => {
       try {
         const res = await fetch(API_URL, {
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
           },
         });
-
-        console.log(res, "res");
-        console.log("header", res.headers);
 
         const result = await res.json();
         setProducts(result.data);
@@ -169,11 +166,10 @@ const AddProduct = () => {
       method,
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     });
-
-    console.log("api called");
 
     setOpen(false);
     setEditingId(null);
@@ -189,7 +185,9 @@ const AddProduct = () => {
 
     // refresh
     const res = await fetch(API_URL, {
-      headers: { 'Content-Type': 'application/json', },
+      headers: { 'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${token}`,
+      },
     });
 
     const result = await res.json();
@@ -218,6 +216,7 @@ const AddProduct = () => {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
     });
 
