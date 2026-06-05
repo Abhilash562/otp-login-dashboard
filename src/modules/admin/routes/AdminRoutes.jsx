@@ -8,6 +8,7 @@ import Products from "../pages/Products";
 import Orders from "../pages/Orders";
 import StockMonitoring from "../pages/StockMonitoring";
 import Profile from "../pages/Profile";
+import Reports from "../pages/Reports";
 
 const AdminRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AdminRoutes = () => {
         <Route path="orders" element={<Orders />} />
         <Route path="stock" element={<StockMonitoring />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="reports" element={<Reports/>} />
       </Route>
     </Routes>
   );

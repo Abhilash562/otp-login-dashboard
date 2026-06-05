@@ -20,6 +20,7 @@ import {
   ShoppingCart,
   Assessment,
   Person,
+  BarChart,
 } from "@mui/icons-material";
 import { LogOut } from "lucide-react";
 
@@ -58,6 +59,11 @@ const menus = [
     name: "Profile",
     path: "/admin/dashboard/profile",
     icon: <Person />,
+  },
+  {
+    name: "Reports",
+    path: "/admin/dashboard/reports",
+    icon: <BarChart />,
   },
   {
     name: "Logout",
