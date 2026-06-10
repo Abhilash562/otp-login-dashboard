@@ -2,10 +2,10 @@ import { Routes, Route } from 'react-router-dom';
 import LoginPage from "./pages/LoginPage.jsx"
 import RegisterPage from "./pages/RegisterPage.jsx";
 import SupplierRoutes from "./modules/supplier/routes/SupplierRoutes.jsx";
-import VendorDashboard from "./pages/VendorDasgboard.jsx";
 import OTPVerification from './components/auth/OTPVerification.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import AdminRoutes from './modules/admin/routes/AdminRoutes.jsx';
+import VendorRoutes from './modules/vendor/routes/VendorRoutes.jsx';
 
 function App() {
   return (
@@ -23,9 +23,9 @@ function App() {
           <SupplierRoutes/>
          </ProtectedRoute>
       } />
-      <Route path="/vendor/dashboard" element={
+      <Route path="/vendor/*" element={
          <ProtectedRoute role="VENDOR">
-          <VendorDashboard />
+          <VendorRoutes />
          </ProtectedRoute>
       } />
     </Routes>
