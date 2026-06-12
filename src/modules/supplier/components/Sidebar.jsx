@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Package,
@@ -6,6 +6,12 @@ import {
   ClipboardList,
   User,
   LogOut,
+  FileText,
+  Receipt,
+  CreditCard,
+  BarChart3,
+  ChevronDown,
+  ChevronRight,
 } from "lucide-react";
 
 import {
@@ -18,7 +24,9 @@ import {
   Avatar,
   Stack,
   Divider,
+  Collapse,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const menus = [
   {
@@ -46,14 +54,26 @@ const menus = [
     path: "/supplier/profile",
     icon: <User size={18} />,
   },
-  {
-    name: "Logout",
-    path: "/login",
-    icon: <LogOut size={18} />,
-  },
+];
+
+const billingItems = [
+  { name: "Invoices", path: "/supplier/invoices", icon: <FileText size={16} /> },
+  { name: "Billings", path: "/supplier/billings", icon: <Receipt size={16} /> },
+  { name: "Payments", path: "/supplier/payments", icon: <CreditCard size={16} /> },
+  { name: "Reports", path: "/supplier/reports", icon: <BarChart3 size={16} /> },
 ];
 
 const Sidebar = () => {
+
+  const location = useLocation();
+  const [billingOpen, setBillingOpen] = useState(false);
+
+  useEffect(() => {
+    if (billingItems.some((item) => item.path === location.pathname)) {
+      setBillingOpen(true);
+    }
+  }, [location.pathname]);
+
   return (
     <Box
       sx={{
@@ -139,6 +159,64 @@ const Sidebar = () => {
             )}
           </NavLink>
         ))}
+        {/* Invoice & Billing Dropdown */}
+        <ListItemButton
+          onClick={() => setBillingOpen((prev) => !prev)}
+          sx={{
+            mb: 1,
+            borderRadius: 3,
+            backgroundColor: "transparent", // parent doesn't get active style
+            color: "#374151",
+            "&:hover": { backgroundColor: "#f3f4f6" },
+          }}
+        >
+          <ListItemIcon sx={{ minWidth: 40, color: "#6b7280" }}>
+            <Receipt size={18} />
+          </ListItemIcon>
+          <ListItemText primary="Invoice & Billing" />
+          {billingOpen ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+        </ListItemButton>
+
+        <Collapse in={billingOpen} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {billingItems.map((item) => (
+              <NavLink key={item.name} to={item.path} style={{ textDecoration: "none" }}>
+                {({ isActive }) => (
+                  <ListItemButton
+                    sx={{
+                      pl: 6,
+                      mb: 0.5,
+                      borderRadius: 2,
+                      backgroundColor: isActive ? "#1976d2" : "transparent",
+                      color: isActive ? "#fff" : "#374151",
+                      "&:hover": { backgroundColor: isActive ? "#1565c0" : "#f3f4f6" },
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{ minWidth: 35, color: isActive ? "#fff" : "#6b7280" }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.name}
+                      primaryTypographyProps={{ fontWeight: isActive ? 600 : 500 }}
+                    />
+                  </ListItemButton>
+                )}
+              </NavLink>
+            ))}
+          </List>
+        </Collapse>
+
+        {/* Logout */}
+        <NavLink to="/login" style={{ textDecoration: "none" }}>
+          <ListItemButton sx={{ mb: 1, borderRadius: 3 }}>
+            <ListItemIcon sx={{ minWidth: 40 }}>
+              <LogOut size={18} />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItemButton>
+        </NavLink>
       </List>
     </Box>
   );

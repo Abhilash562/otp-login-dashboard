@@ -5,6 +5,11 @@ import AddProduct from "../pages/AddProduct";
 import StockList from "../pages/StockList";
 import VendorRequests from "../pages/VendorRequests";
 import Profile from "../pages/Profile";
+import SupplierLayout from "../components/SupplierLayout";
+import Invoice from "../../billing and invoice/pages/invoices/Invoices";
+import Billings from "../../billing and invoice/pages/billing/Billings";
+import Payments from "../../billing and invoice/pages/payments/Payments";
+import BillingReports from "../../billing and invoice/pages/reports/BillingReports";
 
 const SupplierRoutes = () => {
   return (
@@ -21,6 +26,31 @@ const SupplierRoutes = () => {
       <Route path="vendor-requests" element={<VendorRequests />} />
 
       <Route path="profile" element={<Profile />} />
+
+      {/* Invoice & Billing */}
+      <Route path="invoices" element={
+          <SupplierLayout>
+              <Invoice />
+          </SupplierLayout>
+      } />
+
+      <Route path="billings" element={
+          <SupplierLayout>
+              <Billings />
+          </SupplierLayout>
+      } />
+
+      <Route path="payments" element={
+          <SupplierLayout>
+              <Payments />
+          </SupplierLayout>
+      } />
+
+      <Route path="reports" element={
+          <SupplierLayout>
+              <BillingReports />
+          </SupplierLayout>
+      } />
 
     </Routes>
   );
