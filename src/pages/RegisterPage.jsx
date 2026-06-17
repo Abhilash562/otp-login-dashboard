@@ -17,6 +17,7 @@ const RegisterPage = () => {
    const [form, setForm] = useState({
     name: '',
     mobileNumber: '',
+    email:'',
     location: '',
     businessName: '',
     businessType: '',
@@ -42,6 +43,7 @@ const RegisterPage = () => {
         {
           name: form.name,
           mobileNumber: form.mobileNumber,
+          email:form.email,
           location: form.location,
           businessName: form.businessName,
           businessType: form.businessType,
@@ -133,6 +135,22 @@ const RegisterPage = () => {
             helperText={
               form.mobileNumber.length > 0 && form.mobileNumber.length !== 10
                 ? 'Mobile number must be exactly 10 digits'
+                : ''
+            }
+          />
+          <TextField
+            label="Email"
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            required
+            error={form.email.length > 0 && !form.email.includes('@')}
+            helperText={
+              form.email.length > 0 && !form.email.includes('@')
+                ? 'Enter a valid email'
                 : ''
             }
           />
