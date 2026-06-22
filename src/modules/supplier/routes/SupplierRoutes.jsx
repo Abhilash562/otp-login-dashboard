@@ -10,6 +10,7 @@ import Invoice from "../../billing and invoice/pages/invoices/Invoices";
 import Billings from "../../billing and invoice/pages/billing/Billings";
 import Payments from "../../billing and invoice/pages/payments/Payments";
 import BillingReports from "../../billing and invoice/pages/reports/BillingReports";
+import Chats from "../../chats/chats";
 
 const SupplierRoutes = () => {
   return (
@@ -49,6 +50,11 @@ const SupplierRoutes = () => {
       <Route path="reports" element={
           <SupplierLayout>
               <BillingReports />
+          </SupplierLayout>
+      } />
+      <Route path="chats" element={
+          <SupplierLayout>
+               <Chats />
           </SupplierLayout>
       } />
 

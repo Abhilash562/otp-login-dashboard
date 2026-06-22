@@ -28,11 +28,14 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 
+import ChatIcon from "@mui/icons-material/Chat";
+
 const menus = [
   { name: "Dashboard", path: "/vendor/dashboard", icon: <LayoutDashboard size={18} /> },
   { name: "Browse Products", path: "/vendor/browse-products", icon: <Package size={18} /> },
   { name: "My Orders", path: "/vendor/my-orders", icon: <PlusSquare size={18} /> },
   { name: "Request Product", path: "/vendor/request-product", icon: <ClipboardList size={18} /> },
+  { name: "Chats", path: "/vendor/chats", icon: <ChatIcon /> },
   { name: "Profile", path: "/vendor/profile", icon: <User size={18} /> },
 ];
 

@@ -37,6 +37,8 @@ const MobileInput = () => {
 
       const role = localStorage.setItem('role', data.role);
       
+      localStorage.setItem("uniqueUserId", data.uniqueUserId);
+      
       localStorage.setItem('mobile', mobile);
 
       if (response.status === 200) {

@@ -27,6 +27,7 @@ import {
   Collapse,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import ChatIcon from "@mui/icons-material/Chat";
 
 const menus = [
   {
@@ -49,6 +50,10 @@ const menus = [
     path: "/supplier/vendor-requests",
     icon: <ClipboardList size={18} />,
   },
+  { name: "Chats", 
+    path: "/supplier/chats",
+    icon: <ChatIcon /> 
+  },  
   {
     name: "Profile",
     path: "/supplier/profile",

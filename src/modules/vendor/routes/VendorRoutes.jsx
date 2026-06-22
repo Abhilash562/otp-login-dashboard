@@ -9,6 +9,7 @@ import Payments from "../../billing and invoice/pages/payments/Payments";
 import VendorLayout from "../components/VendorLayout";
 import BillingReports from "../../billing and invoice/pages/reports/BillingReports";
 import Billings from "../../billing and invoice/pages/billing/Billings";
+import Chats from "../../chats/chats";
 
 const VendorRoutes = () => {
 
@@ -49,6 +50,12 @@ const VendorRoutes = () => {
             <Route path="reports" element={
                 <VendorLayout>
                     <BillingReports />
+                </VendorLayout>
+            } />
+
+            <Route path="chats" element={
+                <VendorLayout>
+                    <Chats />
                 </VendorLayout>
             } />
 
