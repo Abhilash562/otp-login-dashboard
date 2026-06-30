@@ -20,6 +20,7 @@ const OTPVerification = () => {
     e.preventDefault();
 
     const role = localStorage.getItem('role');
+    const supplierId = localStorage.getItem("uniqueUserId");
 
     try {
       const response = await fetch('http://localhost:8080/verifyOTP', {
@@ -37,8 +38,14 @@ const OTPVerification = () => {
 
       if (data.status === "VERIFIED") {
         localStorage.setItem("token" , data.token);
-        login({ role, mobile });
+        login({ role, mobile, supplierId });
+        
+        // NEW: check verification before routing
+      if (role === "SUPPLIER") {
+        navigate("/supplier/verification-check");
+      } else {
         navigate(`/${role}/dashboard`);
+      }
       } else {
         alert(data.message || 'Invalid OTP');
       }

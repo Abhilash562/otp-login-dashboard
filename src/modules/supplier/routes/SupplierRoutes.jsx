@@ -11,6 +11,9 @@ import Billings from "../../billing and invoice/pages/billing/Billings";
 import Payments from "../../billing and invoice/pages/payments/Payments";
 import BillingReports from "../../billing and invoice/pages/reports/BillingReports";
 import Chats from "../../chats/chats";
+import VerificationGate from "../pages/VerificationGate";
+import SupplierVerification from "../pages/SupplierVerification";
+import SupplierStatusCard from "../pages/SupplierStatusCard";
 
 const SupplierRoutes = () => {
   return (
@@ -57,6 +60,12 @@ const SupplierRoutes = () => {
                <Chats />
           </SupplierLayout>
       } />
+
+      <Route path="verification-check" element={<VerificationGate />} />
+
+      <Route path="verification" element={<SupplierVerification />} />
+
+      <Route path="verification-status" element={<SupplierStatusCard/>} />
 
     </Routes>
   );
